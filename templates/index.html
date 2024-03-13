@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+
+{% block title %}
+	Literaly NoName
+{% endblock %}
+{#==================================#}
+{% block style %}
+<style>
+    .main-content {
+        display: flex;
+        flex-direction: row;
+        height: 100vh;
+    }
+
+    .sidebar {
+        width: 200px; /* Adjust width as needed */
+        background-color: orchid;
+        padding: 20px;
+        border-right: 2px solid black;
+    }
+    .file {
+        font-family: Arial, sans-serif;
+        font-size: 21px;
+        padding: 0 10px ;
+        border-radius: 8px;
+        {#text-overflow: ellipsis;#}
+
+    }
+
+    .filediv{
+        border: 1px solid white;
+        display: flex;
+        justify-content: space-between;
+        margin: 15px 0;
+        border-radius: 15px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .button-container {
+        margin-top: auto; /* Push the button to the bottom */
+        padding: 20px;
+    }
+    .button {
+        background-color: darkorchid;
+        border: 1px solid black;
+        font-size: 21px;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 15px;
+        cursor: pointer;
+        position: absolute;
+        margin-bottom: 20px;
+        bottom: 0;
+    }
+
+    .rem-bt{
+        height: 40px;
+        margin: auto 10px auto 0;
+        border-radius: 10px;
+        background-color: transparent;
+
+    }
+    #add-file-form{
+        border: 1px solid black;
+        padding: 10px;
+        border-radius: 7px;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        margin-left: 12px;
+        margin-bottom: 20px;
+        width: 10vw;
+    }
+    .chat-area{
+        background: #520973;
+        width: 85%;
+        padding: 25px;
+        display: flex;
+        flex-direction: column;
+    }
+    .chat-content{
+        background: black;
+        height: auto;
+    }
+    .chat-input{
+        border-radius: 10px;
+        background: white;
+        position: absolute;
+        bottom: 20px;
+        width: inherit;
+    }
+</style>
+{% endblock %}
+{#==================================#}
+{% block content %}
+    <div class="main-content">
+        <div class="sidebar">
+            <h2 style='text-align: center;font-family: Arial, sans-serif'>Files</h2>
+            <hr>
+            {% if not files %}
+                <h2>{{ "No Files present" }}</h2>
+            {% else %}
+                {% for i, file in files %}
+                    <div class="filediv">
+                        <h3 class="file">{{ i }}. {{ file }}</h3>
+                        <button class="rem-bt" id="rmbutton{{ i }}">X</button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <div id="add-file-form">
+                <form action="{{ url_for("uploadFile") }}" method="post" enctype=multipart/form-data>
+                    <input type="file" name="file" accept="application/pdf, text/plain"><br>
+                    <input type="submit" value="Upload">
+                </form>
+            </div>
+        </div>
+
+        <div class="chat-area">
+            <div class="chat-content">
+                <h1>hello</h1>
+            </div>
+            <div class="chat-input">
+                <h1>world</h1>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
